@@ -158,47 +158,28 @@ mod BoolArithmetic {
         //
 
         @Test
-        pub def example353(): Bool \ IO = {
+        pub def example01(): Bool = {
             let s = IfThenElse(True, False, False);
             let t = IfThenElse(s, True, True);
             let u = IfThenElse(False, True, True);
             let expected = IfThenElse(u, False, False);
-            match handleError(eval)(IfThenElse(t, False, False)) {
-                case Err(msg) => println(msg); false
-                case Ok(res) =>
-                    println("found    ${res}");
-                    println("expected ${expected}");
-                    Assert.eq(expected, res)
-            }
+            Util.assertRes(expected, handleError(eval)(IfThenElse(t, False, False)))
         }
 
         @Test
-        pub def example3513(): Bool \ IO = {
+        pub def example02(): Bool = {
             let expected = Pred(Succ(Zero));
-            match handleError(eval)(Pred(Succ(Pred(Zero)))) {
-                case Err(msg) => println(msg); false
-                case Ok(res) =>
-                    println("found    ${res}");
-                    println("expected ${expected}");
-                    Assert.eq(expected, res)
-            }
+            Util.assertRes(expected, handleError(eval)(Pred(Succ(Pred(Zero)))))
         }
 
         @Test
-        pub def testBigStep(): Bool \ IO = {
+        pub def example03(): Bool = {
             let input = Succ(IfThenElse(IsZero(Pred(Succ(Succ(Zero)))), Succ(Zero), Pred(Pred(Zero))));
             let bigOutput = handleError(evalBigStep)(input);
             let smallRes = evalTransitive(input);
             let expected = Succ(Zero);
-            match bigOutput {
-                case Err(msg) => println(msg); false
-                case Ok(bigRes) =>
-                    println("big      ${bigRes}");
-                    println("small    ${smallRes}");
-                    println("expected ${expected}");
-                    Assert.eq(expected, bigRes) and
-                    Assert.eq(expected, smallRes)
-            }
+            Util.assertRes(expected, bigOutput) and
+            Assert.eq(expected, smallRes)
         }
 
     }
