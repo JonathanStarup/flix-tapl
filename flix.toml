@@ -1,0 +1,6 @@
+[package]
+name        = "flix-tapl"
+description = "Implementing Types and Programming Languages by Benjamin Pierce in Flix"
+version     = "0.1.0"
+flix        = "0.44.0"
+authors     = ["Jonathan Lindegaard Starup <jls@cs.au.dk>"]
